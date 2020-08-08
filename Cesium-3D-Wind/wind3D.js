@@ -5,13 +5,16 @@ class Wind3D {
             geocoder: false,
             infoBox: false,
             fullscreenElement: 'cesiumContainer',
-            scene3DOnly: true
+            scene3DOnly: true,
+            animation: false,
+            timeline: false
         }
 
         if (mode.debug) {
             options.useDefaultRenderLoop = false;
         }
 
+        Cesium.Ion.defaultAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0MjM4NGQ4Yi05MjAzLTQ3NzMtOTZmYS05ZDE1ZWZhYTk3OWMiLCJpZCI6MTEzNTYsInNjb3BlcyI6WyJhc3IiLCJnYyJdLCJpYXQiOjE1NTg2ODcwMDJ9.I0-TpqepRcWIVUUI8KrhoSZp-a70sRSRveNLBXOwOto";
         this.viewer = new Cesium.Viewer('cesiumContainer', options);
         this.scene = this.viewer.scene;
         this.camera = this.viewer.camera;
@@ -113,11 +116,20 @@ class Wind3D {
     setupEventListeners() {
         const that = this;
 
-        this.camera.moveStart.addEventListener(function () {
-            that.scene.primitives.show = false;
-        });
+        this.camera.percentageChanged = 0;
 
-        this.camera.moveEnd.addEventListener(function () {
+        // this.camera.moveStart.addEventListener(function () {
+        //     that.scene.primitives.show = false;
+        // });
+
+        // this.camera.moveEnd.addEventListener(function () {
+        //     that.updateViewerParameters();
+        //     that.particleSystem.applyViewerParameters(that.viewerParameters);
+        //     that.scene.primitives.show = true;
+        // });
+
+        this.camera.changed.addEventListener(function () {
+            that.scene.primitives.show = false;
             that.updateViewerParameters();
             that.particleSystem.applyViewerParameters(that.viewerParameters);
             that.scene.primitives.show = true;
