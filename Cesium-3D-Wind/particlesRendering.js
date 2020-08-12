@@ -54,6 +54,7 @@ class ParticlesRendering {
         }
     }
 
+    //生成线段顶点
     createSegmentsGeometry(userInput) {
         const repeatVertex = 4;
 

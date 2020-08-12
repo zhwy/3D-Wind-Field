@@ -38,7 +38,7 @@ class CustomPrimitive {
                 var vertexArray = Cesium.VertexArray.fromGeometry({
                     context: context,
                     geometry: this.geometry,
-                    attributeLocations: this.attributeLocations,
+                    attributeLocations: this.attributeLocations,//传入attributeLocations下标，可在geometry.attributes中取得
                     bufferUsage: Cesium.BufferUsage.STATIC_DRAW,
                 });
 
