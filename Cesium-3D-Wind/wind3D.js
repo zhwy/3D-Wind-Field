@@ -16,6 +16,7 @@ class Wind3D {
 
         Cesium.Ion.defaultAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0MjM4NGQ4Yi05MjAzLTQ3NzMtOTZmYS05ZDE1ZWZhYTk3OWMiLCJpZCI6MTEzNTYsInNjb3BlcyI6WyJhc3IiLCJnYyJdLCJpYXQiOjE1NTg2ODcwMDJ9.I0-TpqepRcWIVUUI8KrhoSZp-a70sRSRveNLBXOwOto";
         this.viewer = new Cesium.Viewer('cesiumContainer', options);
+        this.viewer.scene.debugShowFramesPerSecond = true;
         this.scene = this.viewer.scene;
         this.camera = this.viewer.camera;
 
