@@ -58,6 +58,7 @@ class ParticlesRendering {
     createSegmentsGeometry(userInput) {
         const repeatVertex = 4;
 
+        // particlesTextureSize = Math.sqrt(maxParticles)
         var st = [];
         for (var s = 0; s < userInput.particlesTextureSize; s++) {
             for (var t = 0; t < userInput.particlesTextureSize; t++) {
