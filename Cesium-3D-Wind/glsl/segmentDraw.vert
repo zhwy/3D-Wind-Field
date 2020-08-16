@@ -9,7 +9,7 @@ uniform sampler2D postProcessingSpeed;
 uniform float particleHeight;
 
 uniform float aspect;
-uniform float pixelSize;
+uniform float pixelSize; //pixel resolution
 uniform float lineWidth;
 
 varying float speedNormalization;
@@ -56,12 +56,12 @@ vec4 calcOffset(vec4 currentProjectedCoord, vec4 nextProjectedCoord, float offse
     vec2 nextXY = (nextProjectedCoord.xy / nextProjectedCoord.w) * aspectVec2;
 
     float offsetLength = lineWidth / 2.0;
-    vec2 direction = normalize(nextXY - currentXY);
-    vec2 normalVector = vec2(-direction.y, direction.x);
-	normalVector.x = normalVector.x / aspect;
+    vec2 direction = normalize(nextXY - currentXY); //前进方向
+    vec2 normalVector = vec2(-direction.y, direction.x); //垂直方向
+	normalVector.x = normalVector.x / aspect; // aspect = width / height
     normalVector = offsetLength * normalVector;
 
-    vec4 offset = vec4(offsetSign * normalVector, 0.0, 0.0);
+    vec4 offset = vec4(offsetSign * normalVector, 0.0, 0.0); //垂直方向上的偏移量
     return offset;
 }
 
@@ -83,8 +83,9 @@ void main() {
 
 	float pointToUse = normal.x; // -1 is currentProjectedCoord and +1 is nextProjectedCoord
 	float offsetSign = normal.y;
-	
-    vec4 offset = pixelSize * calcOffset(currentProjectedCoord, nextProjectedCoord, offsetSign);
+	    
+    vec4 offset = pixelSize * calcOffset(currentProjectedCoord, nextProjectedCoord, offsetSign); //垂直方向上的偏移数值
+    
     if (pointToUse < 0.0) {
         gl_Position = currentProjectedCoord + offset;
     } else {

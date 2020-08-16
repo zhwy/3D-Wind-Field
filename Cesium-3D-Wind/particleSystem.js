@@ -69,6 +69,7 @@ class ParticleSystem {
                 bufferUsage: Cesium.BufferUsage.STATIC_DRAW,
             });
             this.particlesRendering.primitives.segments.commandToExecute.vertexArray = vertexArray;
+            debugger
         }
     }
 

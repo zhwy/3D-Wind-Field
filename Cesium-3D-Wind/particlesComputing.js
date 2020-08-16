@@ -29,7 +29,7 @@ class ParticlesComputing {
     createParticlesTextures(context, userInput, viewerParameters) {
         var particlesTextureOptions = {
             context: context,
-            width: userInput.particlesTextureSize,
+            width: userInput.particlesTextureSize, //粒子数
             height: userInput.particlesTextureSize,
             pixelFormat: Cesium.PixelFormat.RGBA,
             pixelDatatype: Cesium.PixelDatatype.FLOAT,
@@ -43,6 +43,7 @@ class ParticlesComputing {
 
         var particlesArray = DataProcess.randomizeParticles(userInput.maxParticles, viewerParameters)
         var zeroArray = new Float32Array(4 * userInput.maxParticles).fill(0);
+        debugger
 
         this.particlesTextures = {
             particlesWind: Util.createTexture(particlesTextureOptions),
@@ -107,8 +108,8 @@ class ParticlesComputing {
                 fragmentShaderSource: new Cesium.ShaderSource({
                     sources: [Util.loadText(fileOptions.glslDirectory + 'getWind.frag')]
                 }),
-                outputTexture: this.particlesTextures.particlesWind,
-                preExecute: function () {
+                outputTexture: this.particlesTextures.particlesWind,//存储gpu计算结果
+                preExecute: function () { //下次计算之前执行，将上次计算结果写入
                     // keep the outputTexture up to date
                     that.primitives.getWind.commandToExecute.outputTexture = that.particlesTextures.particlesWind;
                 }

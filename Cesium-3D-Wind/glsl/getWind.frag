@@ -16,7 +16,7 @@ vec2 mapPositionToNormalizedIndex2D(vec3 lonLatLev) {
     lonLatLev.x = mod(lonLatLev.x, 360.0);
     lonLatLev.y = clamp(lonLatLev.y, -90.0, 90.0);
 
-    vec3 index3D = vec3(0.0);
+    vec3 index3D = vec3(0.0);// 计算经纬度和高度对应的纹理坐标下标
     index3D.x = (lonLatLev.x - minimum.x) / interval.x;
     index3D.y = (lonLatLev.y - minimum.y) / interval.y;
     index3D.z = (lonLatLev.z - minimum.z) / interval.z;
@@ -61,6 +61,7 @@ float calculateB(sampler2D windTexture, float t, float lon, float lat, float lev
     float lon2 = floor(lon) + 1.0 * interval.x;
     float lon3 = floor(lon) + 2.0 * interval.x;
 
+    //临近点采样，取个点风向
     float p0 = getWind(windTexture, vec3(lon0, lat, lev));
     float p1 = getWind(windTexture, vec3(lon1, lat, lev));
     float p2 = getWind(windTexture, vec3(lon2, lat, lev));
@@ -99,6 +100,6 @@ vec3 bicubic(vec3 lonLatLev) {
 void main() {
     // texture coordinate must be normalized
     vec3 lonLatLev = texture2D(currentParticlesPosition, v_textureCoordinates).rgb;
-    vec3 windVector = bicubic(lonLatLev);
+    vec3 windVector = bicubic(lonLatLev);//利用当前点周围点，对uv分量进行插值
 	gl_FragColor = vec4(windVector, 0.0);
 }

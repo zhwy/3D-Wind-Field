@@ -59,6 +59,8 @@ class ParticlesRendering {
         const repeatVertex = 4;
 
         // particlesTextureSize = Math.sqrt(maxParticles)
+
+        //伪纹理坐标，用于从随机点坐标uniforms中取坐标值
         var st = [];
         for (var s = 0; s < userInput.particlesTextureSize; s++) {
             for (var t = 0; t < userInput.particlesTextureSize; t++) {
@@ -70,6 +72,7 @@ class ParticlesRendering {
         }
         st = new Float32Array(st);
 
+        //用于存储法向（顶点延展法向，用于绘制短线段）
         var normal = [];
         const pointToUse = [-1, 1];
         const offsetSign = [-1, 1];
@@ -84,6 +87,11 @@ class ParticlesRendering {
         }
         normal = new Float32Array(normal);
 
+        /**
+         * 顶点索引
+         * 2 3
+         * 0 1
+         */
         const indexSize = 6 * userInput.maxParticles;
         var vertexIndexes = new Uint32Array(indexSize);
         for (var i = 0, j = 0, vertex = 0; i < userInput.maxParticles; i++) {
@@ -111,7 +119,7 @@ class ParticlesRendering {
             }),
             indices: vertexIndexes
         });
-
+        debugger
         return geometry;
     }
 

@@ -74,7 +74,6 @@ class Wind3D {
             this.scene.drawingBufferWidth,
             this.scene.drawingBufferHeight
         );
-
         if (pixelSize > 0) {
             this.viewerParameters.pixelSize = pixelSize;
         }
